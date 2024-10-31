@@ -132,17 +132,20 @@
                             <div class="hero-body" style="margin-top: 40px; margin-bottom: -30px;">
                                 <img id="overview" width="100%" src="./img/pipeline.png" />
                             </div>
-                            <b>Overview.</b>
-                            DepthCrafter is a conditional diffusion model that models
-                            the distribution over the depth sequence conditioned on the input video.
-                            We train the model in three stages,
-                            where the spatial or temporal layers of the diffusion model
-                            are progressively learned on our compiled realistic or synthetic datasets with variable
-                            lengths.
-                            During inference, given an open-world video, it can generate temporally consistent long
-                            depth
-                            sequences with fine-grained details for the entire video from initialized Gaussian noise,
-                            without requiring any supplementary information, such as camera poses or optical flow.
+                            Given a text prompt consisting of N entities, 3DTrajMaster (a) is
+                            able to generate the desired video with entity motions that conform to the input entity-wise
+                            pose sequences.
+                            Specifically, it involves two training phases.
+                            First, it utilizes a domain adaptor to mitigate the negative impact of training videos.
+                            Then, an object injector module is inserted after the 2D spatial self-attention layer to
+                            integrate paired entity prompts and 3D trajectories.
+                            (b) Details of the object injection process.
+                            The entities are projected into latent embeddings through the text encoder. The paired pose
+                            sequences are projected using a learnable pose encoder and then fused with entity embeddings
+                            to form entity-trajectory correspondences.
+                            This condition embedding is concatenated with the video latent and fed into a gated
+                            self-attention layer for motion fusion.
+                            Finally, the modified latent gets back to the remaining layers in the DiT block.
 
                         </div>
                     </div>
